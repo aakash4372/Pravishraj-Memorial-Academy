@@ -145,7 +145,7 @@ const Testimonial21 = () => {
   };
 
   return (
-    <section className="ezy__testimonial21 light py-14 md:py-24 bg-[#efefef] dark:bg-[#0b1727] text-zinc-900 dark:text-white">
+    <section id="testimonials" className="ezy__testimonial21 light py-14 md:py-24 bg-[#efefef] dark:bg-[#0b1727] text-zinc-900 dark:text-white">
       <div className="container px-4 max-w-6xl mx-auto relative">
         <div className="max-w-6xl mx-auto mb-10 px-4">
           <div className="flex items-center mb-4">

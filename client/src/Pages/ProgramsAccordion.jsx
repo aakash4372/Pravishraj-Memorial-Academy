@@ -198,7 +198,7 @@ const UniversitySection = ({ university }) => {
 };
 
 const CourseCarousel = () => (
-    <div className="font-inter bg-gray-50 min-h-screen py-10">
+    <div className="font-inter bg-gray-50 min-h-screen py-10" id='courses'>
         <style>
             {`
             .custom-scrollbar::-webkit-scrollbar {

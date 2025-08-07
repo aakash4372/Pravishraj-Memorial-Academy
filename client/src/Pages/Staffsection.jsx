@@ -27,7 +27,7 @@ export function Staffsection() {
   ];
 
   return (
-    <section className="relative py-16 px-4 bg-[#23334a] overflow-hidden">
+    <section className="relative py-16 px-4 bg-[#23334a] overflow-hidden" id="ourstaff">
       {/* Section Heading */}
       <div className="max-w-3xl mx-auto px-4 mb-10">
         <div className="flex items-center mb-4">

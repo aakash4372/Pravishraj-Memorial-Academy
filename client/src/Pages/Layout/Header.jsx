@@ -9,7 +9,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
   const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
-  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false); // New state for the modal
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,23 +20,22 @@ const Header = () => {
   }, []);
 
   const topBarLinks = [
-    { name: "Gallery", path: "/gallery" },
-    { name: "Our Staff", path: "/ourstaff" },
+    { name: "Gallery", path: "#gallery" },
+    { name: "Our Staff", path: "#ourstaff" },
   ];
 
   const mainNavLinks = [
-    { name: "Home", path: "/home" },
-    { name: "About", path: "/about" },
+    { name: "Home", path: "#home" },
+    { name: "About", path: "#about" },
     {
       name: "Courses",
-      path: "/courses",
       hasDropdown: true,
       dropdownContent: [
-        { name: "Alagappa University", path: "/Course", description: "Centre for Distance Education" },
-        { name: "Bharathidasan University", path: "/Course", description: "Centre for Distance Education" },
+        { name: "Alagappa University", path: "#courses", description: "Centre for Distance Education" },
+        { name: "Bharathidasan University", path: "#courses", description: "Centre for Distance Education" },
       ],
     },
-    { name: "Testimonials", path: "/testimonials" },
+    { name: "Testimonials", path: "#testimonials" },
   ];
 
   const dropdownContentVariants = {
@@ -65,11 +64,13 @@ const Header = () => {
 
   const navigateTo = (e, path, name) => {
     e.preventDefault();
-    window.history.pushState({}, "", path);
-    setActiveLink(name || path);
+    setActiveLink(name);
     setIsOffcanvasOpen(false);
     setOpenMobileDropdown(null);
-    window.dispatchEvent(new Event("popstate"));
+    const element = document.querySelector(path);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -107,7 +108,7 @@ const Header = () => {
               ))}
             </div>
             <a
-              href="#"
+              href="#contact"
               className="bg-[#48b06c] text-white px-4 py-2 rounded-md font-semibold hover:bg-[#3d9159] transition duration-200"
               onClick={(e) => {
                 e.preventDefault();
@@ -121,9 +122,7 @@ const Header = () => {
       </div>
 
       {/* Main Navigation Bar */}
-      <nav
-        className={`w-full transition-all duration-300 bg-white shadow-lg py-3`}
-      >
+      <nav className={`w-full transition-all duration-300 bg-white shadow-lg py-3`}>
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 flex justify-between items-center">
           <div className="flex items-center space-x-4 justify-start">
             <img src={Logo} alt="Pravishraj Memorial Academy" className="w-12 h-12" />
@@ -293,7 +292,7 @@ const Header = () => {
                 ))}
                 <div className="mt-8">
                   <a
-                    href="#"
+                    href="#contact"
                     className="bg-[#48b06c] text-white px-4 py-2 rounded-md font-semibold hover:bg-[#3d9159] transition duration-200 block text-center"
                     onClick={(e) => {
                       e.preventDefault();

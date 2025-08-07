@@ -7,7 +7,7 @@ import bharathidasan from "@/assets/img/bharathidasan.png";
 
 const Aboutus = () => {
   return (
-    <div className="min-h-screen bg-[#1b2945] font-sans text-white">
+    <div className="min-h-screen bg-[#1b2945] font-sans text-white" id="about">
       <header
         className="relative bg-cover bg-center"
         style={{

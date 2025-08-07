@@ -4,21 +4,31 @@ import Logo from "@/assets/img/logo.png";
 
 const Footer = () => {
   const menuLinks = [
-    { title: "Menu", links: ["Home", "About", "Courses"] },
+    { 
+      title: "Menu", 
+      links: [
+        { name: "Home", path: "#home" },
+        { name: "About", path: "#about" },
+        { name: "Courses", path: "#courses" }
+      ]
+    },
     {
       title: "University Tie-ups",
-      links: ["Alagappa University", "Bharathidasan University"],
+      links: [
+        { name: "Alagappa University", path: "#course-alagappa" },
+        { name: "Bharathidasan University", path: "#course-bharathidasan" }
+      ],
     },
     {
       title: "Alagappa University",
       links: [
         {
           programs: [
-            "UG Programs",
-            "PG Programs",
-            "M.B.A Groups",
-            "Diploma Programs",
-            "Certificate Programs",
+            { name: "UG Programs", path: "#alagappa-ug" },
+            { name: "PG Programs", path: "#alagappa-pg" },
+            { name: "M.B.A Groups", path: "#alagappa-mba" },
+            { name: "Diploma Programs", path: "#alagappa-diploma" },
+            { name: "Certificate Programs", path: "#alagappa-certificate" },
           ],
         },
       ],
@@ -28,11 +38,11 @@ const Footer = () => {
       links: [
         {
           programs: [
-            "UG Programs",
-            "PG Programs",
-            "M.B.A Groups",
-            "Diploma Programs",
-            "Certificate Programs",
+            { name: "UG Programs", path: "#bharathidasan-ug" },
+            { name: "PG Programs", path: "#bharathidasan-pg" },
+            { name: "M.B.A Groups", path: "#bharathidasan-mba" },
+            { name: "Diploma Programs", path: "#bharathidasan-diploma" },
+            { name: "Certificate Programs", path: "#bharathidasan-certificate" },
           ],
         },
       ],
@@ -79,14 +89,13 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex gap-3 items-start">
-  <MapPin className="text-[#48b06c] min-w-[20px] mt-1" size={18} />
-  <span className="text-sm md:text-base leading-relaxed">
-    No. 27, 1st Cross, 1st Floor, Bharkath Nagar, M.G. Road,
-    (Kaitheye Millath Arch Opp), Villupuram District,<br className="hidden md:block" />
-    Tamil Nadu – 605104
-  </span>
-</li>
-
+                <MapPin className="text-[#48b06c] min-w-[20px] mt-1" size={18} />
+                <span className="text-sm md:text-base leading-relaxed">
+                  No. 27, 1st Cross, 1st Floor, Bharkath Nagar, M.G. Road,
+                  (Kaitheye Millath Arch Opp), Villupuram District,<br className="hidden md:block" />
+                  Tamil Nadu – 605104
+                </span>
+              </li>
             </ul>
           </div>
 
@@ -99,23 +108,26 @@ const Footer = () => {
               <ul className="flex flex-col gap-2">
                 {menu.links.map((link, linkIndex) => (
                   <React.Fragment key={`${index}-${linkIndex}`}>
-                    {typeof link === "string" ? (
-                      <li>
-                        <a
-                          href="#!"
-                          className="text-gray-300 text-sm hover:text-[#48b06c] transition-colors duration-300"
-                        >
-                          {link}
-                        </a>
-                      </li>
-                    ) : (
-                      link.programs?.map((program, progIndex) => (
+                    {typeof link === "object" && link.programs ? (
+                      link.programs.map((program, progIndex) => (
                         <li key={`${index}-${linkIndex}-${progIndex}`}>
-                          <span className="text-gray-300 text-sm">
-                            {program}
-                          </span>
+                          <a
+                            href={program.path}
+                            className="text-gray-300 text-sm hover:text-[#48b06c] transition-colors duration-300"
+                          >
+                            {program.name}
+                          </a>
                         </li>
                       ))
+                    ) : (
+                      <li>
+                        <a
+                          href={link.path}
+                          className="text-gray-300 text-sm hover:text-[#48b06c] transition-colors duration-300"
+                        >
+                          {link.name}
+                        </a>
+                      </li>
                     )}
                   </React.Fragment>
                 ))}
