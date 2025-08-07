@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 import {
   Dialog,
   DialogContent,
@@ -127,33 +128,32 @@ const courseData = {
   },
 };
 
-export function EnquiryFormModal({ isOpen, onOpenChange }) {
-  // State for form data
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    university: "",
-    course: "",
-    message: "",
-  });
+const initialFormData = {
+  name: "",
+  email: "",
+  mobile: "",
+  university: "",
+  course: "",
+  message: "",
+};
 
-  // Handle input changes
+export function EnquiryFormModal({ isOpen, onOpenChange }) {
+  const [formData, setFormData] = useState(initialFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "university") {
-      // Reset course selection when university changes
       setFormData({ ...formData, university: value, course: "" });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-
+    setIsSubmitting(true);
+    
     try {
       const response = await fetch("https://pravishraj-memorial-academy.onrender.com/send-email", {
         method: "POST",
@@ -165,20 +165,22 @@ export function EnquiryFormModal({ isOpen, onOpenChange }) {
 
       if (response.ok) {
         console.log("Email sent successfully!");
-        alert("Your enquiry has been submitted successfully!");
+        toast.success("Your enquiry has been submitted successfully!");
+        setFormData(initialFormData); // Clear the form fields
         onOpenChange(false); // Close the modal
       } else {
         const errorData = await response.json();
         console.error("Error sending email:", errorData.message);
-        alert(`Failed to send enquiry: ${errorData.message}`);
+        toast.error(`Failed to send enquiry: ${errorData.message}`);
       }
     } catch (error) {
       console.error("Submission error:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  // Get courses for the selected university
   const selectedCourseGroups = formData.university
     ? courseData[formData.university]
     : {};
@@ -280,8 +282,8 @@ export function EnquiryFormModal({ isOpen, onOpenChange }) {
             />
           </div>
 
-          <Button type="submit" className="w-full">
-            Submit
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </form>
       </DialogContent>
